@@ -80,7 +80,6 @@ public class App extends AbstractHBaseTool {
   }
 
   public static void main(String[] args) throws Exception {
-    int res = ToolRunner.run(new App(), args);
-    System.exit(res);
+    new App().doStaticMain(args);
   }
 }
