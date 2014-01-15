@@ -62,6 +62,7 @@ public class App extends AbstractHBaseTool {
           p.add(fam, ZERO, iAsBytes);
           table.put(p);
         }
+        return 0;
       } finally {
         if (table != null) table.close();
         if (admin != null) admin.close();
@@ -70,13 +71,12 @@ public class App extends AbstractHBaseTool {
     } else {
       // be lazy
       job = RowCounter.createSubmittableJob(getConf(), new String[] {this.tableName});
+      if (job == null) return -1;
+      job.setJobName("HBase fat jar smoketest: " + (isWriteJob ? "write" : "read"));
+      job.setJarByClass(this.getClass());
+      job.waitForCompletion(true);
+      return 0;
     }
-
-    if (job == null) return -1;
-    job.setJobName("HBase fat jar smoketest: " + (isWriteJob ? "write" : "read"));
-    job.setJarByClass(this.getClass());
-    job.waitForCompletion(true);
-    return 0;
   }
 
   public static void main(String[] args) throws Exception {
