@@ -15,6 +15,13 @@
     <hbase.version>0.96.1.1-hadoop2</hbase.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>apache</id>
+      <url>https://repository.apache.org/content/repositories</url>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>
